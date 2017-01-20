@@ -1,18 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="16dp"
+    android:orientation="vertical"
     tools:context="com.example.android.hexagonfilterview.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
-</RelativeLayout>
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@android:color/darker_gray">
+
+        <com.example.android.hexagonfilterview.customview.HexagonFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            custom:hexagonWidth="56dp"
+            custom:hexagonColor="@android:color/holo_blue_dark"
+            custom:insideCountText="27"
+            custom:insideCountTextSize="24sp"
+            custom:insideCountTextColor="@color/colorAccent"
+            custom:insideUnitText="개"
+            custom:insideUnitTextSize="17sp"
+            custom:insideUnitTextColor="@android:color/black"
+            custom:hexagonLabelText="전체위험도"
+            custom:hexagonLabelTextSize="15sp"
+            custom:hexagonLabelTextColor="@android:color/holo_orange_light" />
+
+        <com.example.android.hexagonfilterview.customview.HexagonFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            custom:hexagonWidth="56dp"
+            custom:hexagonColor="@android:color/holo_blue_dark"
+            custom:insideCountText="19"
+            custom:insideCountTextSize="24sp"
+            custom:insideCountTextColor="@color/colorAccent"
+            custom:insideUnitText="개"
+            custom:insideUnitTextSize="17sp"
+            custom:insideUnitTextColor="@android:color/black"
+            custom:hexagonLabelText="낮은위험도"
+            custom:hexagonLabelTextSize="15sp"
+            custom:hexagonLabelTextColor="@android:color/holo_orange_light" />
+
+        <com.example.android.hexagonfilterview.customview.HexagonFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            custom:hexagonWidth="56dp"
+            custom:hexagonColor="@android:color/holo_blue_dark"
+            custom:insideCountText="8"
+            custom:insideCountTextSize="24sp"
+            custom:insideCountTextColor="@android:color/white"
+            custom:insideUnitText="개"
+            custom:insideUnitTextSize="17sp"
+            custom:insideUnitTextColor="@android:color/black"
+            custom:hexagonLabelText="중간위험도"
+            custom:hexagonLabelTextSize="15sp"
+            custom:hexagonLabelTextColor="@android:color/holo_orange_light" />
+
+        <com.example.android.hexagonfilterview.customview.HexagonFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            custom:hexagonWidth="56dp"
+            custom:hexagonColor="@android:color/holo_blue_dark"
+            custom:insideCountText="3"
+            custom:insideCountTextSize="24sp"
+            custom:insideCountTextColor="@android:color/white"
+            custom:insideUnitText="개"
+            custom:insideUnitTextSize="17sp"
+            custom:insideUnitTextColor="@android:color/black"
+            custom:hexagonLabelText="높은위험도"
+            custom:hexagonLabelTextSize="15sp"
+            custom:hexagonLabelTextColor="@android:color/holo_orange_light" />
+
+        <com.example.android.hexagonfilterview.customview.HexagonFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            custom:hexagonWidth="56dp"
+            custom:hexagonColor="@android:color/holo_blue_dark"
+            custom:insideCountText="1"
+            custom:insideCountTextSize="24sp"
+            custom:insideCountTextColor="@android:color/white"
+            custom:insideUnitText="개"
+            custom:insideUnitTextSize="17sp"
+            custom:insideUnitTextColor="@android:color/black"
+            custom:hexagonLabelText="등급미정"
+            custom:hexagonLabelTextSize="15sp"
+            custom:hexagonLabelTextColor="@android:color/holo_orange_light" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="bottom"/>
+
+
+</LinearLayout>

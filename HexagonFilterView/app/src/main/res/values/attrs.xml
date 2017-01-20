@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HexagonFilterView">
+        <attr name="hexagonWidth" format="dimension"/>
+        <attr name="hexagonColor" format="color"/>
+        <attr name="insideCountText" format="string"/>
+        <attr name="insideCountTextSize" format="dimension"/>
+        <attr name="insideCountTextColor" format="color"/>
+        <attr name="insideUnitText" format="string"/>
+        <attr name="insideUnitTextSize" format="dimension"/>
+        <attr name="insideUnitTextColor" format="color"/>
+
+        <attr name="hexagonLabelText" format="string"/>
+        <attr name="hexagonLabelTextSize" format="dimension"/>
+        <attr name="hexagonLabelTextColor" format="color" />
+    </declare-styleable>
+</resources>
