@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,27 +18,43 @@
         <com.example.android.combinehexagonview.HexagonFilterView
             android:id="@+id/hexagon1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            custom:hexagonImageSrc="@drawable/chemical_composition_dangerous_status4"
+            custom:hexagonCount="27"
+            custom:hexagonLabel="전체 성분"/>
 
         <com.example.android.combinehexagonview.HexagonFilterView
             android:id="@+id/hexagon2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            custom:hexagonImageSrc="@drawable/chemical_composition_dangerous_status1"
+            custom:hexagonCount="19"
+            custom:hexagonLabel="낮은위험도"/>
 
         <com.example.android.combinehexagonview.HexagonFilterView
             android:id="@+id/hexagon3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            custom:hexagonImageSrc="@drawable/chemical_composition_dangerous_status2"
+            custom:hexagonCount="6"
+            custom:hexagonLabel="중간위험도"/>
+
 
         <com.example.android.combinehexagonview.HexagonFilterView
             android:id="@+id/hexagon4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            custom:hexagonImageSrc="@drawable/chemical_composition_dangerous_status3"
+            custom:hexagonCount="1"
+            custom:hexagonLabel="높은위험도"/>
 
         <com.example.android.combinehexagonview.HexagonFilterView
             android:id="@+id/hexagon5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            custom:hexagonImageSrc="@drawable/chemical_composition_dangerous_status4"
+            custom:hexagonCount="1"
+            custom:hexagonLabel="등급 미정"/>
 
     </LinearLayout>
 

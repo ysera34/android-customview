@@ -3,8 +3,7 @@
               android:layout_width="67dp"
               android:layout_height="95dp"
               android:gravity="center_horizontal"
-              android:orientation="vertical"
-    android:background="@color/colorAccent">
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/hexagon_filter_image_layout"
@@ -19,8 +18,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/chemical_composition"/>
+            android:layout_alignParentTop="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,8 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="19sp"
-                android:textColor="@android:color/white"
-                android:text="20"/>
+                android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/unit_text_view"
@@ -54,7 +51,6 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="#757575"
-        android:layout_gravity="center"
-        android:text="낮은위험도" />
+        android:layout_gravity="center"/>
 
 </LinearLayout>
