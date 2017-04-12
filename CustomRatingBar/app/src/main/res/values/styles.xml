@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="starRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/custom_ratingbar_full</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:thumb">@null</item>
+    </style>
+
+    <style name="smallStarRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/custom_small_ratingbar_full</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:thumb">@null</item>
+    </style>
+
+    <style name="largeStarRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/custom_large_ratingbar_full</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:thumb">@null</item>
+    </style>
+
+    <style name="star2RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:thumb">@null</item>
+    </style>
+</resources>
