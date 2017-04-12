@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CardView">
+        <attr name="name" format="string"></attr>
+        <attr name="imageID" format="integer"></attr>
+        <attr name="imageColor" format="color"></attr>
+    </declare-styleable>
+</resources>
