@@ -12,6 +12,7 @@
         android:text="Hello World!"/>
 
     <com.example.android.rotateimageviewpager.RotateImageViewPager
+        android:id="@+id/content_banner_rotate_image_view_pager"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         custom:titleIcon="@drawable/ic_subject_black_36dp"
