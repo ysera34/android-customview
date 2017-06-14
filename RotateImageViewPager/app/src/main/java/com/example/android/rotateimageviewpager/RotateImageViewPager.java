@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class RotateImageViewPager extends RelativeLayout {
         try {
             mTitleIconResId = a.getResourceId(R.styleable.RotateImageViewPager_titleIcon, 0);
             mTitle = a.getNonResourceString(R.styleable.RotateImageViewPager_title);
-            mIndicatorPositionId = a.getInt(R.styleable.RotateImageViewPager_indicatorPosition, -1);
+            mIndicatorType = a.getInt(R.styleable.RotateImageViewPager_indicatorType, -1);
         } finally {
             a.recycle();
         }
@@ -49,7 +50,7 @@ public class RotateImageViewPager extends RelativeLayout {
 
     private int mTitleIconResId;
     private String mTitle;
-    private int mIndicatorPositionId;
+    private int mIndicatorType;
 
     private View mRootView;
     private ViewPager mRotateImageViewPager;
@@ -57,8 +58,10 @@ public class RotateImageViewPager extends RelativeLayout {
     private ImageView mTitleIconImageView;
     private TextView mTitleTextView;
     private LinearLayout mIndicatorLayout;
+    private ArrayList<TextView> mIndicatorTextViews;
 
     private RotateImageViewPagerAdapter mImageViewPagerAdapter;
+    private RotateImageViewPagerPageChangeListener mImageViewPagerPageChangeListener;
 
     private void initializeView(Context context) {
         mRootView = inflate(context, R.layout.layout_rotate_image_view_pager, this);
@@ -76,9 +79,37 @@ public class RotateImageViewPager extends RelativeLayout {
             mImageViewPagerAdapter = new RotateImageViewPagerAdapter(imagePaths);
         }
         mRotateImageViewPager.setAdapter(mImageViewPagerAdapter);
+        setViewPagerIndicator(imagePaths.size());
     }
 
-    class RotateImageViewPagerAdapter extends PagerAdapter {
+    private void setViewPagerIndicator(int size) {
+        mIndicatorTextViews = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            TextView indicatorTextView = new TextView(getContext());
+            indicatorTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+            indicatorTextView.setText("\u0020\u0020\u0020\u0020");
+            indicatorTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            if (i != size - 1) {
+                LinearLayout.LayoutParams params =
+                        (LinearLayout.LayoutParams) indicatorTextView.getLayoutParams();
+                params.setMarginEnd(20);
+                indicatorTextView.setLayoutParams(params);
+            }
+            mIndicatorLayout.addView(indicatorTextView);
+            mIndicatorTextViews.add(indicatorTextView);
+        }
+        setIndicatorBackground(0);
+    }
+
+    public void addOnImagePageChangeListener() {
+        if (mImageViewPagerPageChangeListener == null) {
+            mImageViewPagerPageChangeListener = new RotateImageViewPagerPageChangeListener(mIndicatorTextViews);
+        }
+        mRotateImageViewPager.addOnPageChangeListener(mImageViewPagerPageChangeListener);
+    }
+
+    private class RotateImageViewPagerAdapter extends PagerAdapter {
 
         private ArrayList<String> mImagePaths;
         private LayoutInflater mLayoutInflater;
@@ -113,6 +144,42 @@ public class RotateImageViewPager extends RelativeLayout {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout) object);
+        }
+    }
+
+    private class RotateImageViewPagerPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        private ArrayList<TextView> mIndicatorTextViews;
+
+        public RotateImageViewPagerPageChangeListener(ArrayList<TextView> indicatorTextViews) {
+            mIndicatorTextViews = indicatorTextViews;
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            setIndicatorBackground(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
+    private void setIndicatorBackground(int position) {
+        for (int i = 0; i < mIndicatorTextViews.size(); i++) {
+            if (i == position) {
+                mIndicatorTextViews.get(i)
+                        .setBackgroundResource(R.drawable.widget_indicator_circle_true);
+            } else {
+                mIndicatorTextViews.get(i)
+                        .setBackgroundResource(R.drawable.widget_indicator_circle_false);
+            }
         }
     }
 }

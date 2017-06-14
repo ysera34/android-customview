@@ -17,7 +17,7 @@
         android:layout_height="220dp"
         custom:titleIcon="@drawable/ic_subject_black_36dp"
         custom:title="rotate image compound view"
-        custom:indicatorPosition="1">
+        custom:indicatorType="1">
 
     </com.example.android.rotateimageviewpager.RotateImageViewPager>
 

@@ -3,6 +3,6 @@
     <declare-styleable name="RotateImageViewPager">
         <attr name="titleIcon" format="integer" />
         <attr name="title" format="string" />
-        <attr name="indicatorPosition" format="integer" />
+        <attr name="indicatorType" format="integer" />
     </declare-styleable>
 </resources>

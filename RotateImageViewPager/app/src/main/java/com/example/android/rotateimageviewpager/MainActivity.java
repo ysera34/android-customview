@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         mRotateImageViewPager =
                 (RotateImageViewPager) findViewById(R.id.content_banner_rotate_image_view_pager);
         mRotateImageViewPager.setImageViewPagerAdapter(setImageUrl(6));
+        mRotateImageViewPager.addOnImagePageChangeListener();
     }
 
     private ArrayList<String> setImageUrl(int imageCount) {
