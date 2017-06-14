@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,10 +85,11 @@ public class RotateImageViewPager extends RelativeLayout {
         mIndicatorTextViews = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             TextView indicatorTextView = new TextView(getContext());
-            indicatorTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
-            indicatorTextView.setText("\u0020\u0020\u0020\u0020");
+//            indicatorTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+//            indicatorTextView.setText("\u0020\u0020\u0020\u0020");
             indicatorTextView.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            specifyIndicatorSize(indicatorTextView);
             if (i != size - 1) {
                 LinearLayout.LayoutParams params =
                         (LinearLayout.LayoutParams) indicatorTextView.getLayoutParams();
@@ -104,9 +104,15 @@ public class RotateImageViewPager extends RelativeLayout {
 
     public void addOnImagePageChangeListener() {
         if (mImageViewPagerPageChangeListener == null) {
-            mImageViewPagerPageChangeListener = new RotateImageViewPagerPageChangeListener(mIndicatorTextViews);
+            mImageViewPagerPageChangeListener = new RotateImageViewPagerPageChangeListener();
         }
         mRotateImageViewPager.addOnPageChangeListener(mImageViewPagerPageChangeListener);
+    }
+
+    public void removeOnImagePageChangeListener() {
+        if (mImageViewPagerPageChangeListener != null) {
+            mRotateImageViewPager.removeOnPageChangeListener(mImageViewPagerPageChangeListener);
+        }
     }
 
     private class RotateImageViewPagerAdapter extends PagerAdapter {
@@ -149,12 +155,6 @@ public class RotateImageViewPager extends RelativeLayout {
 
     private class RotateImageViewPagerPageChangeListener implements ViewPager.OnPageChangeListener {
 
-        private ArrayList<TextView> mIndicatorTextViews;
-
-        public RotateImageViewPagerPageChangeListener(ArrayList<TextView> indicatorTextViews) {
-            mIndicatorTextViews = indicatorTextViews;
-        }
-
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -169,6 +169,13 @@ public class RotateImageViewPager extends RelativeLayout {
         public void onPageScrollStateChanged(int state) {
 
         }
+    }
+
+    private void specifyIndicatorSize(TextView indicatorTextView) {
+        indicatorTextView.getLayoutParams().width =
+                (int) getResources().getDimension(R.dimen.rotate_view_pager_indicator_width);
+        indicatorTextView.getLayoutParams().height =
+                (int) getResources().getDimension(R.dimen.rotate_view_pager_indicator_height);
     }
 
     private void setIndicatorBackground(int position) {
