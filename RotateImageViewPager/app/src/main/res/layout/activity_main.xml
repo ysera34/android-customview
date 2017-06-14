@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"/>
+
+    <com.example.android.rotateimageviewpager.RotateImageViewPager
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        custom:titleIcon="@drawable/ic_subject_black_36dp"
+        custom:title="rotate image compound view"
+        custom:indicatorPosition="1">
+
+    </com.example.android.rotateimageviewpager.RotateImageViewPager>
+
+</RelativeLayout>
