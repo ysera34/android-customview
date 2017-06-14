@@ -21,4 +21,14 @@
 
     </com.example.android.rotateimageviewpager.RotateImageViewPager>
 
+    <com.example.android.rotateimageviewpager.RotateImageViewPager
+        android:id="@+id/review_rotate_image_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/content_banner_rotate_image_view_pager"
+        custom:titleIcon="@drawable/ic_subject_black_36dp"
+        custom:title="rotate image compound view, type default">
+
+    </com.example.android.rotateimageviewpager.RotateImageViewPager>
+
 </RelativeLayout>

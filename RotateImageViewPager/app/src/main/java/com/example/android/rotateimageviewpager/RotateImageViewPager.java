@@ -38,7 +38,7 @@ public class RotateImageViewPager extends RelativeLayout {
 
         try {
             mTitleIconResId = a.getResourceId(R.styleable.RotateImageViewPager_titleIcon, 0);
-            mTitle = a.getNonResourceString(R.styleable.RotateImageViewPager_title);
+            mTitle = a.getString(R.styleable.RotateImageViewPager_title);
             mIndicatorType = a.getInt(R.styleable.RotateImageViewPager_indicatorType, -1);
         } finally {
             a.recycle();
@@ -78,10 +78,10 @@ public class RotateImageViewPager extends RelativeLayout {
             mImageViewPagerAdapter = new RotateImageViewPagerAdapter(imagePaths);
         }
         mRotateImageViewPager.setAdapter(mImageViewPagerAdapter);
-        setViewPagerIndicator(imagePaths.size());
+        setViewPagerIndicator(imagePaths.size(), mIndicatorType);
     }
 
-    private void setViewPagerIndicator(int size) {
+    private void setViewPagerIndicator(int size, int type) {
         mIndicatorTextViews = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             TextView indicatorTextView = new TextView(getContext());
@@ -100,6 +100,21 @@ public class RotateImageViewPager extends RelativeLayout {
             mIndicatorTextViews.add(indicatorTextView);
         }
         setIndicatorBackground(0);
+        setIndicatorLayout(type);
+    }
+
+    private void setIndicatorLayout(int layoutType) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIndicatorLayout.getLayoutParams();
+        switch (layoutType) {
+            case -1:
+                break;
+            case 1:
+                params.addRule(RelativeLayout.ALIGN_PARENT_END);
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                params.setMargins(0, 30, 30, 0);
+                mIndicatorLayout.setLayoutParams(params);
+                break;
+        }
     }
 
     public void addOnImagePageChangeListener() {
@@ -113,6 +128,14 @@ public class RotateImageViewPager extends RelativeLayout {
         if (mImageViewPagerPageChangeListener != null) {
             mRotateImageViewPager.removeOnPageChangeListener(mImageViewPagerPageChangeListener);
         }
+    }
+
+    private void startAutoSwipeViewPager() {
+        // add handler
+    }
+
+    private void stopAutoSwipeViewPager() {
+        // remove handler
     }
 
     private class RotateImageViewPagerAdapter extends PagerAdapter {
