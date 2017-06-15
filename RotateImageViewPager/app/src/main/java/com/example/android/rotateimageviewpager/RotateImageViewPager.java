@@ -65,8 +65,9 @@ public class RotateImageViewPager extends RelativeLayout {
     private RotateImageViewPagerPageChangeListener mImageViewPagerPageChangeListener;
 
     private RotateImageInfiniteViewPagerAdapter mInfiniteViewPagerAdapter;
+    private RotateImageInfiniteViewPagerPageChangeListener mInfiniteViewPagerPageChangeListener;
 
-    private static final long ROTATE_THRESHOLD_TIME = 1000;
+    private static final long ROTATE_THRESHOLD_TIME = 3000;
     private int mRotateImageViewPagerCurrentIndex;
     private Handler mRotateHandler;
     private Runnable mRotateRunnable;
@@ -78,7 +79,9 @@ public class RotateImageViewPager extends RelativeLayout {
         mTitleIconImageView = (ImageView) mRootView.findViewById(R.id.title_icon_image_view);
         mTitleIconImageView.setImageResource(mTitleIconResId);
         mTitleTextView = (TextView) mRootView.findViewById(R.id.title_text_view);
-        mTitleTextView.setText(String.valueOf(mTitle));
+        if (mTitle != null) {
+            mTitleTextView.setText(String.valueOf(mTitle));
+        }
         mIndicatorLayout = (LinearLayout) mRootView.findViewById(R.id.indicator_layout);
     }
 
@@ -88,44 +91,6 @@ public class RotateImageViewPager extends RelativeLayout {
         }
         mRotateImageViewPager.setAdapter(mImageViewPagerAdapter);
         setViewPagerIndicator(imagePaths.size(), mIndicatorType);
-    }
-
-    private void setViewPagerIndicator(int size, int type) {
-        mIndicatorTextViews = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            TextView indicatorTextView = new TextView(getContext());
-//            indicatorTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
-//            indicatorTextView.setText("\u0020\u0020\u0020\u0020");
-            indicatorTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            specifyIndicatorSize(indicatorTextView);
-            if (i != size - 1) {
-                LinearLayout.LayoutParams params =
-                        (LinearLayout.LayoutParams) indicatorTextView.getLayoutParams();
-                params.setMarginEnd(20);
-                indicatorTextView.setLayoutParams(params);
-            }
-            mIndicatorLayout.addView(indicatorTextView);
-            mIndicatorTextViews.add(indicatorTextView);
-        }
-        setIndicatorBackground(0);
-        setIndicatorLayout(type);
-        mRotateImageViewPagerCurrentIndex = 0;
-    }
-
-    private void setIndicatorLayout(int layoutType) {
-        RelativeLayout.LayoutParams params =
-                (RelativeLayout.LayoutParams) mIndicatorLayout.getLayoutParams();
-        switch (layoutType) {
-            case -1:
-                break;
-            case 1:
-                params.addRule(RelativeLayout.ALIGN_PARENT_END);
-                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                params.setMargins(0, 30, 30, 0);
-                mIndicatorLayout.setLayoutParams(params);
-                break;
-        }
     }
 
     public void addOnImagePageChangeListener() {
@@ -208,12 +173,64 @@ public class RotateImageViewPager extends RelativeLayout {
         }
     }
 
+    private class RotateImageViewPagerPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            setIndicatorBackground(position);
+            mRotateImageViewPagerCurrentIndex = position;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
     public void setInfiniteRotateViewPagerAdapter(ArrayList<CardItem> cardItems) {
         if (mInfiniteViewPagerAdapter == null) {
             mInfiniteViewPagerAdapter = new RotateImageInfiniteViewPagerAdapter(cardItems);
         }
         mRotateImageViewPager.setAdapter(mInfiniteViewPagerAdapter);
         mRotateImageViewPager.setCurrentItem(cardItems.size() * 1000);
+        setViewPagerIndicator(cardItems.size(), mIndicatorType);
+    }
+
+    public void addOnInfinitePageChangeListener() {
+        if (mInfiniteViewPagerPageChangeListener == null) {
+            mInfiniteViewPagerPageChangeListener = new RotateImageInfiniteViewPagerPageChangeListener();
+        }
+        mRotateImageViewPager.addOnPageChangeListener(mInfiniteViewPagerPageChangeListener);
+    }
+
+    public void removeOnInfinitePageChangeListener() {
+        if (mInfiniteViewPagerPageChangeListener != null) {
+            mRotateImageViewPager.removeOnPageChangeListener(mInfiniteViewPagerPageChangeListener);
+        }
+    }
+
+    public void startInfiniteRotateViewPager() {
+        mRotateHandler = new Handler();
+        mRotateRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mRotateImageViewPager.setCurrentItem(mRotateImageViewPagerCurrentIndex++, true);
+                mRotateHandler.postDelayed(mRotateRunnable, ROTATE_THRESHOLD_TIME);
+            }
+        };
+        mRotateHandler.postDelayed(mRotateRunnable, ROTATE_THRESHOLD_TIME);
+    }
+
+    public void stopInfiniteRotateViewPager() {
+        if (mRotateHandler != null) {
+            mRotateHandler.removeCallbacks(mRotateRunnable);
+            mRotateHandler = null;
+        }
     }
 
     private class RotateImageInfiniteViewPagerAdapter extends PagerAdapter {
@@ -249,7 +266,7 @@ public class RotateImageViewPager extends RelativeLayout {
         }
     }
 
-    private class RotateImageViewPagerPageChangeListener implements ViewPager.OnPageChangeListener {
+    private class RotateImageInfiniteViewPagerPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -258,13 +275,55 @@ public class RotateImageViewPager extends RelativeLayout {
 
         @Override
         public void onPageSelected(int position) {
-            setIndicatorBackground(position);
+            int cardPosition = position % mIndicatorTextViews.size();
+            setIndicatorBackground(cardPosition);
             mRotateImageViewPagerCurrentIndex = position;
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
 
+        }
+    }
+
+    private void setViewPagerIndicator(int size, int type) {
+        mIndicatorTextViews = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            TextView indicatorTextView = new TextView(getContext());
+            indicatorTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            specifyIndicatorSize(indicatorTextView);
+            if (i != size - 1) {
+                LinearLayout.LayoutParams params =
+                        (LinearLayout.LayoutParams) indicatorTextView.getLayoutParams();
+                params.setMarginEnd(20);
+                indicatorTextView.setLayoutParams(params);
+            }
+            mIndicatorLayout.addView(indicatorTextView);
+            mIndicatorTextViews.add(indicatorTextView);
+        }
+        setIndicatorBackground(0);
+        setIndicatorLayout(type);
+
+        if (mRotateImageViewPager.getAdapter().getCount() > mIndicatorTextViews.size()) {
+            mRotateImageViewPagerCurrentIndex = mRotateImageViewPager.getCurrentItem();
+        } else {
+            mRotateImageViewPagerCurrentIndex = 0;
+        }
+    }
+
+    private void setIndicatorLayout(int layoutType) {
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) mIndicatorLayout.getLayoutParams();
+        switch (layoutType) {
+            case -1:
+                break;
+            case 1:
+                params.addRule(RelativeLayout.ALIGN_PARENT_END);
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                params.setMargins(0, 30, 30, 0);
+                mIndicatorLayout.setLayoutParams(params);
+                break;
         }
     }
 

@@ -34,18 +34,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mRotateImageViewPager1.addOnImagePageChangeListener();
+        mRotateImageViewPager1.startRotateViewPager();
+
         mRotateImageViewPager2.addOnImagePageChangeListener();
 
-        mRotateImageViewPager1.startRotateViewPager();
+        mCardInfiniteRotateImageViewPager.addOnInfinitePageChangeListener();
+        mCardInfiniteRotateImageViewPager.startInfiniteRotateViewPager();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mRotateImageViewPager1.removeOnImagePageChangeListener();
+        mRotateImageViewPager1.stopRotateViewPager();
+
         mRotateImageViewPager2.removeOnImagePageChangeListener();
 
-        mRotateImageViewPager1.stopRotateViewPager();
+        mCardInfiniteRotateImageViewPager.removeOnInfinitePageChangeListener();
+        mCardInfiniteRotateImageViewPager.stopInfiniteRotateViewPager();
     }
 
     private ArrayList<String> setImageUrl(int imageCount) {
@@ -62,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CardItem> cardItems = new ArrayList<>();
         for (int i = 0; i < cardSize; i++) {
             CardItem cardItem = new CardItem();
-            cardItem.setImagePath("https://unsplash.it/360/220/?random");
+            cardItem.setImagePath("https://unsplash.it/360/400/?random");
             cardItem.setTitle("title : " + i);
             cardItem.setDescription("description : " + i);
             cardItems.add(cardItem);
