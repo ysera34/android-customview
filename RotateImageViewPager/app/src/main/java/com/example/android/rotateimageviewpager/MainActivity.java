@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RotateImageViewPager mRotateImageViewPager1;
     private RotateImageViewPager mRotateImageViewPager2;
+    private RotateImageViewPager mCardInfiniteRotateImageViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
         mRotateImageViewPager2 =
                 (RotateImageViewPager) findViewById(R.id.review_rotate_image_view_pager);
         mRotateImageViewPager2.setImageViewPagerAdapter(setImageUrl(4));
+
+        mCardInfiniteRotateImageViewPager =
+                (RotateImageViewPager) findViewById(R.id.card_rotate_image_view_pager);
+        mCardInfiniteRotateImageViewPager.setInfiniteRotateViewPagerAdapter(setCardItems(7));
+
     }
 
     @Override
@@ -49,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
             imagePaths.add("https://unsplash.it/360/220/?random");
         }
         return imagePaths;
+    }
+
+    private ArrayList<CardItem> setCardItems(int cardSize) {
+
+        ArrayList<CardItem> cardItems = new ArrayList<>();
+        for (int i = 0; i < cardSize; i++) {
+            CardItem cardItem = new CardItem();
+            cardItem.setImagePath("https://unsplash.it/360/220/?random");
+            cardItem.setTitle("title : " + i);
+            cardItem.setDescription("description : " + i);
+            cardItems.add(cardItem);
+        }
+        return cardItems;
     }
 }

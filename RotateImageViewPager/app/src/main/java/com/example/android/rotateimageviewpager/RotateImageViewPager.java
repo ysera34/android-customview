@@ -64,6 +64,8 @@ public class RotateImageViewPager extends RelativeLayout {
     private RotateImageViewPagerAdapter mImageViewPagerAdapter;
     private RotateImageViewPagerPageChangeListener mImageViewPagerPageChangeListener;
 
+    private RotateImageInfiniteViewPagerAdapter mInfiniteViewPagerAdapter;
+
     private static final long ROTATE_THRESHOLD_TIME = 1000;
     private int mRotateImageViewPagerCurrentIndex;
     private Handler mRotateHandler;
@@ -193,6 +195,47 @@ public class RotateImageViewPager extends RelativeLayout {
         @Override
         public int getCount() {
             return mImagePaths.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((LinearLayout) object);
+        }
+    }
+
+    public void setInfiniteRotateViewPagerAdapter(ArrayList<CardItem> cardItems) {
+        if (mInfiniteViewPagerAdapter == null) {
+            mInfiniteViewPagerAdapter = new RotateImageInfiniteViewPagerAdapter(cardItems);
+        }
+        mRotateImageViewPager.setAdapter(mInfiniteViewPagerAdapter);
+        mRotateImageViewPager.setCurrentItem(cardItems.size() * 1000);
+    }
+
+    private class RotateImageInfiniteViewPagerAdapter extends PagerAdapter {
+
+        private ArrayList<CardItem> mCardItems;
+
+        public RotateImageInfiniteViewPagerAdapter(ArrayList<CardItem> cardItems) {
+            mCardItems = cardItems;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            int realPosition = position % mCardItems.size();
+            CardView cardView = new CardView(getContext(), mCardItems.get(realPosition));
+            container.addView(cardView);
+            return cardView;
+        }
+
+        @Override
+        public int getCount() {
+//            return mCardItems.size();
+            return Integer.MAX_VALUE;
         }
 
         @Override

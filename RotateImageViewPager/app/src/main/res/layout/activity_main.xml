@@ -31,4 +31,13 @@
 
     </com.example.android.rotateimageviewpager.RotateImageViewPager>
 
+    <com.example.android.rotateimageviewpager.RotateImageViewPager
+        android:id="@+id/card_rotate_image_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/review_rotate_image_view_pager"
+        custom:title="card infinite rotate view pager">
+
+    </com.example.android.rotateimageviewpager.RotateImageViewPager>
+
 </RelativeLayout>
