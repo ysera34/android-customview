@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         mRotateImageViewPager1.addOnImagePageChangeListener();
         mRotateImageViewPager2.addOnImagePageChangeListener();
+
+        mRotateImageViewPager1.startRotateViewPager();
     }
 
     @Override
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         mRotateImageViewPager1.removeOnImagePageChangeListener();
         mRotateImageViewPager2.removeOnImagePageChangeListener();
+
+        mRotateImageViewPager1.stopRotateViewPager();
     }
 
     private ArrayList<String> setImageUrl(int imageCount) {

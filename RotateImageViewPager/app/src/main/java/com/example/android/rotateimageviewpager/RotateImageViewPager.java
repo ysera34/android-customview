@@ -2,6 +2,7 @@ package com.example.android.rotateimageviewpager;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -62,6 +64,11 @@ public class RotateImageViewPager extends RelativeLayout {
     private RotateImageViewPagerAdapter mImageViewPagerAdapter;
     private RotateImageViewPagerPageChangeListener mImageViewPagerPageChangeListener;
 
+    private static final long ROTATE_THRESHOLD_TIME = 1000;
+    private int mRotateImageViewPagerCurrentIndex;
+    private Handler mRotateHandler;
+    private Runnable mRotateRunnable;
+
     private void initializeView(Context context) {
         mRootView = inflate(context, R.layout.layout_rotate_image_view_pager, this);
         mRotateImageViewPager = (ViewPager) mRootView.findViewById(R.id.rotate_image_view_pager);
@@ -101,10 +108,12 @@ public class RotateImageViewPager extends RelativeLayout {
         }
         setIndicatorBackground(0);
         setIndicatorLayout(type);
+        mRotateImageViewPagerCurrentIndex = 0;
     }
 
     private void setIndicatorLayout(int layoutType) {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIndicatorLayout.getLayoutParams();
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) mIndicatorLayout.getLayoutParams();
         switch (layoutType) {
             case -1:
                 break;
@@ -130,12 +139,26 @@ public class RotateImageViewPager extends RelativeLayout {
         }
     }
 
-    private void startAutoSwipeViewPager() {
-        // add handler
+    public void startRotateViewPager() {
+        mRotateHandler = new Handler();
+        mRotateRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mRotateImageViewPagerCurrentIndex == mIndicatorTextViews.size()) {
+                    mRotateImageViewPagerCurrentIndex = 0;
+                }
+                mRotateImageViewPager.setCurrentItem(mRotateImageViewPagerCurrentIndex++, true);
+                mRotateHandler.postDelayed(mRotateRunnable, ROTATE_THRESHOLD_TIME);
+            }
+        };
+        mRotateHandler.postDelayed(mRotateRunnable, ROTATE_THRESHOLD_TIME);
     }
 
-    private void stopAutoSwipeViewPager() {
-        // remove handler
+    public void stopRotateViewPager() {
+        if (mRotateHandler != null) {
+            mRotateHandler.removeCallbacks(mRotateRunnable);
+            mRotateHandler = null;
+        }
     }
 
     private class RotateImageViewPagerAdapter extends PagerAdapter {
@@ -149,9 +172,16 @@ public class RotateImageViewPager extends RelativeLayout {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View view = mLayoutInflater.inflate(R.layout.layout_rotate_image_view, container, false);
             ImageView imageView = (ImageView) view.findViewById(R.id.rotate_image_view);
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "image view position : " + position,
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
             Glide.with(getContext())
                     .load(mImagePaths.get(position))
@@ -186,6 +216,7 @@ public class RotateImageViewPager extends RelativeLayout {
         @Override
         public void onPageSelected(int position) {
             setIndicatorBackground(position);
+            mRotateImageViewPagerCurrentIndex = position;
         }
 
         @Override
