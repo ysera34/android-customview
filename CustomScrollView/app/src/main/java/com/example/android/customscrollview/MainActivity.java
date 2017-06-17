@@ -3,8 +3,8 @@ package com.example.android.customscrollview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mTargetLayout;
     private boolean isTargetSelected;
 
+    private LayoutInflater mLayoutInflater;
+    private LinearLayout mAddView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mCustomScrollView = (CustomScrollView) findViewById(R.id.custom_scroll_view);
         mTargetLayout = (LinearLayout) findViewById(R.id.target_layout);
         isTargetSelected = false;
+        mLayoutInflater = LayoutInflater.from(getApplicationContext());
 
         mCustomScrollView.setOnScrollChangedListener(new CustomScrollView.OnScrollChangedListener() {
             @Override
@@ -44,18 +48,26 @@ public class MainActivity extends AppCompatActivity {
                 float targetLayoutPositionY = mTargetLayout.getY();
                 Log.i(TAG, "targetLayoutPositionY : " + targetLayoutPositionY);
 
-                int headerLayoutMeasuredHeight = mHeaderLayout.getMeasuredHeight();
+                int headerLayoutMeasuredHeight = 0;
+                if (!isTargetSelected) {
+                    headerLayoutMeasuredHeight = mHeaderLayout.getMeasuredHeight();
+                } else {
+                    headerLayoutMeasuredHeight = mHeaderLayout.getMeasuredHeight() - mAddView.getMeasuredHeight();
+                }
                 Log.i(TAG, "headerLayoutMeasuredHeight : " + headerLayoutMeasuredHeight);
 
                 if (currentYOffset >= (int) targetLayoutPositionY - headerLayoutMeasuredHeight) {
                     if (!isTargetSelected) {
-                        Toast.makeText(getApplicationContext(), "target selected", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "target selected", Toast.LENGTH_SHORT).show();
+                        mAddView = (LinearLayout) mLayoutInflater.inflate(R.layout.layout_target, mHeaderLayout, false);
+                        mHeaderLayout.addView(mAddView);
                         isTargetSelected = true;
                     }
                 }
                 if (currentYOffset < (int) targetLayoutPositionY - headerLayoutMeasuredHeight) {
                     if (isTargetSelected) {
-                        Toast.makeText(getApplicationContext(), "target released", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "target released", Toast.LENGTH_SHORT).show();
+                        mHeaderLayout.removeView(mAddView);
                         isTargetSelected = false;
                     }
                 }
