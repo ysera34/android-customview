@@ -10,15 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:elevation="4dp">
+        android:background="@android:color/white"
+        android:elevation="1dp">
+        <!--android:animateLayoutChanges="true"-->
 
         <LinearLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@android:color/darker_gray">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -82,14 +83,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginBottom="4dp"
+                android:padding="16dp"
                 android:orientation="vertical"
                 android:background="@drawable/widget_rectangle_border">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:gravity="center"
-                    android:text="Hello World! 3"/>
+                    android:text="Hello World! 3"
+                    android:background="@drawable/widget_rectangle_border"/>
 
             </LinearLayout>
 
@@ -109,6 +114,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/target2_layout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginBottom="4dp"
