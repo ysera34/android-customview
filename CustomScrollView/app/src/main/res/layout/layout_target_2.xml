@@ -8,11 +8,13 @@
     <!--android:background="@drawable/widget_rectangle_border">-->
 
     <TextView
+        android:id="@+id/target_text_view_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:gravity="center"
+        android:clickable="true"
         android:text="Hello World! 5"/>
 
 </LinearLayout>
