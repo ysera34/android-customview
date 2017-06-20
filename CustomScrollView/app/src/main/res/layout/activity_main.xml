@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@android:color/white"
+        android:background="@drawable/widget_rectangle_border"
         android:elevation="1dp">
         <!--android:animateLayoutChanges="true"-->
 
@@ -88,6 +88,7 @@
                 android:background="@drawable/widget_rectangle_border">
 
                 <TextView
+                    android:id="@+id/target_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="8dp"

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="vertical"
-    android:background="@drawable/widget_rectangle_border">
-    <!--android:background="@android:color/white">-->
+    android:background="@android:color/white">
+    <!--android:background="@drawable/widget_rectangle_border">-->
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +13,6 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:gravity="center"
-        android:text="Hello World! 5"
-        android:background="@drawable/widget_rectangle_border"/>
+        android:text="Hello World! 5"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,8 +16,10 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mToolbarLayout;
     private CustomScrollView mCustomScrollView;
     private LinearLayout mTargetLayout;
+    private TextView mTargetTextView;
     private LinearLayout mTarget2Layout;
     private boolean isTargetSelected;
+    private boolean isTarget2Selected;
 
     private LayoutInflater mLayoutInflater;
     private LayoutInflater mLayoutInflater2;
@@ -32,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
         mToolbarLayout = (LinearLayout) findViewById(R.id.toolbar_layout);
         mCustomScrollView = (CustomScrollView) findViewById(R.id.custom_scroll_view);
         mTargetLayout = (LinearLayout) findViewById(R.id.target_layout);
+        mTargetTextView = (TextView) findViewById(R.id.target_text_view);
         mTarget2Layout = (LinearLayout) findViewById(R.id.target2_layout);
         isTargetSelected = false;
+        isTarget2Selected = false;
         mLayoutInflater = LayoutInflater.from(getApplicationContext());
         mLayoutInflater2 = LayoutInflater.from(getApplicationContext());
         mAddView = (LinearLayout) mLayoutInflater.inflate(R.layout.layout_target, mHeaderLayout, false);
-        mAddView2 = (LinearLayout) mLayoutInflater2.inflate(R.layout.layout_target_2, mHeaderLayout, false);
 
         mCustomScrollView.setOnScrollChangedListener(new CustomScrollView.OnScrollChangedListener() {
             @Override
@@ -70,30 +74,53 @@ public class MainActivity extends AppCompatActivity {
                     if (!isTargetSelected) {
 //                        Toast.makeText(getApplicationContext(), "target selected", Toast.LENGTH_SHORT).show();
                         mHeaderLayout.addView(mAddView);
+                        mTargetLayout.removeView(mTargetTextView);
                         isTargetSelected = true;
                     } else {
                         mHeaderLayout.animate().translationY(-mToolbarLayout.getMeasuredHeight())
-                                .setInterpolator(new AccelerateInterpolator(2));
+                                .setInterpolator(new AccelerateInterpolator(3));
                     }
                 }
                 if (currentYOffset < (int) targetLayoutPositionY - headerLayoutMeasuredHeight) {
                     if (isTargetSelected) {
 //                        Toast.makeText(getApplicationContext(), "target released", Toast.LENGTH_SHORT).show();
                         mHeaderLayout.removeView(mAddView);
+                        mTargetLayout.addView(mTargetTextView);
                         isTargetSelected = false;
                     } else {
                         mHeaderLayout.animate().translationY(0)
-                                .setInterpolator(new AccelerateInterpolator(2));
+                                .setInterpolator(new AccelerateInterpolator(3));
                     }
                 }
 
                 float target2LayoutPositionY = mTarget2Layout.getY();
-//                int headerLayout2MeasuredHeight = mHeaderLayout.getMeasuredHeight();
-                int headerLayout2MeasuredHeight = mHeaderLayout.getMeasuredHeight() - mAddView.getMeasuredHeight();
-
+                int headerLayout2MeasuredHeight = 0;
                 if (isTargetSelected) {
-                    if (currentYOffset >= (int) target2LayoutPositionY - headerLayout2MeasuredHeight) {
-                        mHeaderLayout.addView(mAddView2, mHeaderLayout.getChildCount());
+                    if (!isTarget2Selected) {
+                        Log.i(TAG, "isTarget2Selected: " + isTarget2Selected);
+                        headerLayout2MeasuredHeight = mHeaderLayout.getMeasuredHeight()
+                                - mToolbarLayout.getMeasuredHeight();
+                        Log.i(TAG, "headerLayout2MeasuredHeight: " + headerLayout2MeasuredHeight);
+                    } else {
+                        Log.i(TAG, "isTarget2Selected: " + isTarget2Selected);
+                        headerLayout2MeasuredHeight = mHeaderLayout.getMeasuredHeight()
+                                - mToolbarLayout.getMeasuredHeight() - mAddView2.getMeasuredHeight();
+                        Log.i(TAG, "headerLayout2MeasuredHeight: " + headerLayout2MeasuredHeight);
+                    }
+                }
+
+                if (currentYOffset >= (int) target2LayoutPositionY - headerLayout2MeasuredHeight) {
+                    if (!isTarget2Selected) {
+                        mAddView2 = (LinearLayout) mLayoutInflater2.inflate(R.layout.layout_target_2, mHeaderLayout, false);
+                        mHeaderLayout.addView(mAddView2);
+                        isTarget2Selected = true;
+                    }
+                }
+
+                if (currentYOffset < (int) target2LayoutPositionY - headerLayout2MeasuredHeight) {
+                    if (isTarget2Selected) {
+                        mHeaderLayout.removeView(mAddView2);
+                        isTarget2Selected = false;
                     }
                 }
             }
