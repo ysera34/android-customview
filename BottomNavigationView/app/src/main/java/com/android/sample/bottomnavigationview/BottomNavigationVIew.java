@@ -9,14 +9,14 @@ import android.widget.LinearLayout;
  * Created by yoon on 2017. 6. 24..
  */
 
-public class BottomNavigationVIew extends LinearLayout {
+public class BottomNavigationView extends LinearLayout {
 
-    public BottomNavigationVIew(Context context) {
+    public BottomNavigationView(Context context) {
         super(context);
         initializeView(context);
     }
 
-    public BottomNavigationVIew(Context context, AttributeSet attrs) {
+    public BottomNavigationView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeView(context);
     }
