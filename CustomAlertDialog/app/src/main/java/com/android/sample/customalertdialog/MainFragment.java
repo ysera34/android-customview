@@ -6,12 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import static com.android.sample.customalertdialog.CustomAlertDialogFragment.A_REQUEST_DIALOG;
 
 /**
  * Created by yoon on 2017. 7. 11..
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
 
     public static MainFragment newInstance() {
 
@@ -21,6 +24,8 @@ public class MainFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    private Button mButtonA;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,5 +42,17 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mButtonA = (Button) view.findViewById(R.id.button_a);
+        mButtonA.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_a:
+                CustomAlertDialogFragment alertDialogFragment = CustomAlertDialogFragment.newInstance();
+                alertDialogFragment.show(getChildFragmentManager(), A_REQUEST_DIALOG);
+                break;
+        }
     }
 }
