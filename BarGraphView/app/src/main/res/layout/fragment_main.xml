@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/hazard1_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="2"
+            android:imeOptions="actionNext"
+            android:textSize="20sp"
+            android:hint="hazard1"
+            android:textColorHint="@color/hazard1"
+            android:background="@null"/>
+
+        <EditText
+            android:id="@+id/hazard2_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="2"
+            android:imeOptions="actionNext"
+            android:textSize="20sp"
+            android:hint="hazard2"
+            android:textColorHint="@color/hazard2"
+            android:background="@null"/>
+
+        <EditText
+            android:id="@+id/hazard3_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="2"
+            android:imeOptions="actionNext"
+            android:textSize="20sp"
+            android:hint="hazard3"
+            android:textColorHint="@color/hazard3"
+            android:background="@null"/>
+
+        <EditText
+            android:id="@+id/hazard4_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="2"
+            android:imeOptions="actionDone"
+            android:textSize="20sp"
+            android:hint="hazard4"
+            android:textColorHint="@color/hazard4"
+            android:background="@null"/>
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
