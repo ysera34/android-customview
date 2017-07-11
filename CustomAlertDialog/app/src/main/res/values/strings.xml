@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CustomAlertDialog</string>
+
+    <string name="title">잠시만요!</string>
+    <string name="description">인터넷에 연결할수 없습니다.\n다시 시도하시거나 네트워크 설정을 확인해 주세요.</string>
 </resources>

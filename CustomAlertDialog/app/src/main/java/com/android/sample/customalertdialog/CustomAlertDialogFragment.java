@@ -8,6 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by yoon on 2017. 7. 11..
@@ -59,14 +61,40 @@ public class CustomAlertDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    private TextView mTitleTextView, mDescriptionTextView;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View view = layoutInflater.inflate(R.layout.fragment_custom_alert_dialog, null);
 
+        mTitleTextView = (TextView) view.findViewById(R.id.alert_dialog_title_text_view);
+        mDescriptionTextView = (TextView) view.findViewById(R.id.alert_dialog_description_text_view);
+
+        int titleResId = getArguments().getInt(ARG_TITLE_RES_ID, -1);
+        int descriptionResId = getArguments().getInt(ARG_DESCRIPTION_RES_ID, -1);
+
+        if (titleResId != 0) {
+            mTitleTextView.setText(getString(titleResId));
+        } else {
+
+        }
+
+        if (descriptionResId != 0) {
+            mDescriptionTextView.setText(getString(descriptionResId));
+        } else {
+            mDescriptionTextView.setVisibility(View.GONE);
+        }
 
         mBuilder = new AlertDialog.Builder(getActivity()).setView(view);
         return mBuilder.create();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.widget_solid_rectangle_white);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

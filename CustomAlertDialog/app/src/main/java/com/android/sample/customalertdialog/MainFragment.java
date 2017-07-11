@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import static com.android.sample.customalertdialog.CustomAlertDialogFragment.A_REQUEST_DIALOG;
+import static com.android.sample.customalertdialog.CustomAlertDialogFragment.B_REQUEST_DIALOG;
 
 /**
  * Created by yoon on 2017. 7. 11..
@@ -25,7 +26,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
-    private Button mButtonA;
+    private Button mButtonA, mButtonB;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,15 +44,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mButtonA = (Button) view.findViewById(R.id.button_a);
+        mButtonB = (Button) view.findViewById(R.id.button_b);
         mButtonA.setOnClickListener(this);
+        mButtonB.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_a:
-                CustomAlertDialogFragment alertDialogFragment = CustomAlertDialogFragment.newInstance();
-                alertDialogFragment.show(getChildFragmentManager(), A_REQUEST_DIALOG);
+                CustomAlertDialogFragment alertDialogFragmentA =
+                        CustomAlertDialogFragment.newInstance(0,R.string.title,R.string.description,0,0);
+                alertDialogFragmentA.show(getChildFragmentManager(), A_REQUEST_DIALOG);
+                break;
+            case R.id.button_b:
+                CustomAlertDialogFragment alertDialogFragmentB =
+                        CustomAlertDialogFragment.newInstance(0,R.string.title,0,0,0);
+                alertDialogFragmentB.show(getChildFragmentManager(), B_REQUEST_DIALOG);
                 break;
         }
     }
