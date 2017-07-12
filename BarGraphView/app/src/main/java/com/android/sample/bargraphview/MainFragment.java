@@ -92,13 +92,19 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         int hazardColorResIdArr[] = {
                 R.color.hazard1, R.color.hazard2, R.color.hazard3, R.color.hazard4,};
 
+        WidthResizeAnimation widthResizeAnimation;
+
         mResultLayout.removeAllViews();
         for (int i = 0; i < mHazards.size(); i++) {
             View view = new View(getContext());
             view.setBackgroundColor(getResources().getColor(hazardColorResIdArr[i]));
-            view.setLayoutParams(new LinearLayout.LayoutParams(
-                    getPixelFromDp(getHazardViewWidth(360, mHazards.get(i), sum)), getPixelFromDp(10)));
+//            view.setLayoutParams(new LinearLayout.LayoutParams(
+//                    getPixelFromDp(getHazardViewWidth(360, mHazards.get(i), sum)), getPixelFromDp(10)));
+            view.setLayoutParams(new LinearLayout.LayoutParams(getPixelFromDp(0), getPixelFromDp(10)));
+            widthResizeAnimation = new WidthResizeAnimation(view, 0, getPixelFromDp(getHazardViewWidth(360, mHazards.get(i), sum)));
+            widthResizeAnimation.setDuration(1000);
             mResultLayout.addView(view);
+            view.startAnimation(widthResizeAnimation);
         }
     }
 
