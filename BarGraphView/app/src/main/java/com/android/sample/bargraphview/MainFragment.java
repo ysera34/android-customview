@@ -3,16 +3,22 @@ package com.android.sample.bargraphview;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 /**
  * Created by yoon on 2017. 7. 11..
  */
 
 public class MainFragment extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = MainFragment.class.getSimpleName();
 
     public static MainFragment newInstance() {
 
@@ -23,9 +29,15 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
+    private LinearLayout mResultLayout;
+    private ArrayList<EditText> mHazardEditTexts;
+    private ArrayList<Integer> mHazards;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHazardEditTexts = new ArrayList<>();
+        mHazards = new ArrayList<>();
     }
 
     @Nullable
@@ -39,14 +51,63 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.start_button).setOnClickListener(this);
+        mResultLayout = (LinearLayout) view.findViewById(R.id.result_layout);
+        mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard1_edit_text));
+        mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard2_edit_text));
+        mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard3_edit_text));
+        mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard4_edit_text));
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_button:
-                Toast.makeText(getContext(), "start_button", Toast.LENGTH_SHORT).show();
+//                for (EditText e : mHazardEditTexts) {
+//                    Log.i(TAG, e.getText().toString());
+//                }
+                if (mHazards.size() > 0) {
+                    mHazards.clear();
+                }
+                for (int i = 0; i < mHazardEditTexts.size(); i++) {
+                    String hazardValue = mHazardEditTexts.get(i).getText().toString();
+                    Log.i(TAG, "Hazard" + (i + 1) + ": " + hazardValue);
+                    if (hazardValue.equals("")) {
+                        hazardValue = "0";
+                    }
+                    mHazards.add(Integer.valueOf(hazardValue));
+                }
+                calculateHazard();
                 break;
         }
+    }
+
+    private void calculateHazard() {
+        int sum = 0;
+        for (int i = 0; i < mHazards.size(); i++) {
+            Log.i(TAG, "mHazards: integer: " + mHazards.get(i));
+            sum += mHazards.get(i);
+        }
+        Log.i(TAG, "sum: " + sum);
+
+        int hazardColorResIdArr[] = {
+                R.color.hazard1, R.color.hazard2, R.color.hazard3, R.color.hazard4,};
+
+        mResultLayout.removeAllViews();
+        for (int i = 0; i < mHazards.size(); i++) {
+            View view = new View(getContext());
+            view.setBackgroundColor(getResources().getColor(hazardColorResIdArr[i]));
+            view.setLayoutParams(new LinearLayout.LayoutParams(
+                    getPixelFromDp(getHazardViewWidth(360, mHazards.get(i), sum)), getPixelFromDp(10)));
+            mResultLayout.addView(view);
+        }
+    }
+
+    private int getHazardViewWidth(int maxLength, int hazardCount, int allCount) {
+        return maxLength * hazardCount / allCount;
+    }
+
+    private int getPixelFromDp(int dp) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
     }
 }

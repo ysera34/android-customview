@@ -16,8 +16,9 @@
             android:inputType="number"
             android:maxLength="2"
             android:imeOptions="actionNext"
-            android:textSize="20sp"
+            android:text="50"
             android:hint="hazard1"
+            android:textSize="16sp"
             android:textColorHint="@color/hazard1"
             android:background="@null"/>
 
@@ -29,8 +30,9 @@
             android:inputType="number"
             android:maxLength="2"
             android:imeOptions="actionNext"
-            android:textSize="20sp"
+            android:text="30"
             android:hint="hazard2"
+            android:textSize="16sp"
             android:textColorHint="@color/hazard2"
             android:background="@null"/>
 
@@ -42,8 +44,9 @@
             android:inputType="number"
             android:maxLength="2"
             android:imeOptions="actionNext"
-            android:textSize="20sp"
+            android:text="10"
             android:hint="hazard3"
+            android:textSize="16sp"
             android:textColorHint="@color/hazard3"
             android:background="@null"/>
 
@@ -55,17 +58,24 @@
             android:inputType="number"
             android:maxLength="2"
             android:imeOptions="actionDone"
-            android:textSize="20sp"
+            android:text="10"
             android:hint="hazard4"
+            android:textSize="16sp"
             android:textColorHint="@color/hazard4"
             android:background="@null"/>
 
-        <Button
-            android:id="@+id/start_button"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"/>
-
     </LinearLayout>
 
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/result_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
 </LinearLayout>
