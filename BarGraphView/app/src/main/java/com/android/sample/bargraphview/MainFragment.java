@@ -51,6 +51,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.start_button).setOnClickListener(this);
+        view.findViewById(R.id.compound_view_start_button).setOnClickListener(this);
         mResultLayout = (LinearLayout) view.findViewById(R.id.result_layout);
         mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard1_edit_text));
         mHazardEditTexts.add((EditText) view.findViewById(R.id.hazard2_edit_text));
@@ -60,23 +61,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (mHazards.size() > 0) {
+            mHazards.clear();
+        }
+        for (int i = 0; i < mHazardEditTexts.size(); i++) {
+            String hazardValue = mHazardEditTexts.get(i).getText().toString();
+            Log.i(TAG, "Hazard" + (i + 1) + ": " + hazardValue);
+            if (hazardValue.equals("")) {
+                hazardValue = "0";
+            }
+            mHazards.add(Integer.valueOf(hazardValue));
+        }
         switch (v.getId()) {
             case R.id.start_button:
-//                for (EditText e : mHazardEditTexts) {
-//                    Log.i(TAG, e.getText().toString());
-//                }
-                if (mHazards.size() > 0) {
-                    mHazards.clear();
-                }
-                for (int i = 0; i < mHazardEditTexts.size(); i++) {
-                    String hazardValue = mHazardEditTexts.get(i).getText().toString();
-                    Log.i(TAG, "Hazard" + (i + 1) + ": " + hazardValue);
-                    if (hazardValue.equals("")) {
-                        hazardValue = "0";
-                    }
-                    mHazards.add(Integer.valueOf(hazardValue));
-                }
                 calculateHazard();
+                break;
+            case R.id.compound_view_start_button:
+                addHazardView();
                 break;
         }
     }
@@ -105,6 +106,24 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             widthResizeAnimation.setDuration(1000);
             mResultLayout.addView(view);
             view.startAnimation(widthResizeAnimation);
+        }
+    }
+
+    private void addHazardView() {
+        int sum = 0;
+        for (int i = 0; i < mHazards.size(); i++) {
+            Log.i(TAG, "mHazards: integer: " + mHazards.get(i));
+            sum += mHazards.get(i);
+        }
+        Log.i(TAG, "sum: " + sum);
+
+        int hazardColorResIdArr[] = {
+                R.color.hazard1, R.color.hazard2, R.color.hazard3, R.color.hazard4,};
+
+        for (int i = 0; i < mHazards.size(); i++) {
+            BarGraphView barGraphView = new BarGraphView(getContext(),
+                    mHazards.get(i), getPixelFromDp(getHazardViewWidth(360, mHazards.get(i), sum)), hazardColorResIdArr[i]);
+            mResultLayout.addView(barGraphView);
         }
     }
 

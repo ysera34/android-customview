@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BarGraphView</string>
+
+    <string name="total_count_format">%s개</string>
 </resources>
