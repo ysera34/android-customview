@@ -59,9 +59,14 @@ public class BarGraphView extends LinearLayout {
         addView(mCountTextView);
         mLayoutParams = (LinearLayout.LayoutParams) mCountTextView.getLayoutParams();
         mLayoutParams.gravity = Gravity.CENTER_VERTICAL;
+        mLayoutParams.setMargins(getPixelFromDp(4), 0, 0, 0);
 
         mBarGraphView.startAnimation(mWidthResizeAnimation);
-        animateTextView(0, mBarGraphValue, mCountTextView);
+        if (mBarGraphValue > 0) {
+            animateTextView(0, mBarGraphValue, mCountTextView);
+        } else if (mBarGraphValue == 0) {
+            mCountTextView.setText(highlightText(mBarGraphValue, mBarColorResId));
+        }
 
     }
 
@@ -72,7 +77,8 @@ public class BarGraphView extends LinearLayout {
         int difference = Math.abs(finalValue - initialValue);
         Handler handler = new Handler();
         for (int i = start; i <= end; i++) {
-            int time = Math.round(decelerateInterpolator.getInterpolation((((float) i) / difference)) * 50) * i;
+//            int time = Math.round(decelerateInterpolator.getInterpolation((((float) i) / difference)) * 50) * i;
+            int time = (1000 / finalValue) * i;
             final int finalCount = ((initialValue > finalValue) ? initialValue - i : i);
             handler.postDelayed(new Runnable() {
                 @Override
@@ -94,4 +100,8 @@ public class BarGraphView extends LinearLayout {
         return spannableString;
     }
 
+    private int getPixelFromDp(int dp) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
 }

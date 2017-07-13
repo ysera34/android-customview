@@ -50,6 +50,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.interpolate_start_button).setOnClickListener(this);
         view.findViewById(R.id.start_button).setOnClickListener(this);
         view.findViewById(R.id.compound_view_start_button).setOnClickListener(this);
         mResultLayout = (LinearLayout) view.findViewById(R.id.result_layout);
@@ -73,6 +74,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mHazards.add(Integer.valueOf(hazardValue));
         }
         switch (v.getId()) {
+            case R.id.interpolate_start_button:
+                startInterpolation();
+                break;
             case R.id.start_button:
                 calculateHazard();
                 break;
@@ -80,6 +84,19 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 addHazardView();
                 break;
         }
+    }
+
+    private void startInterpolation() {
+        int sum = 0;
+        for (int i = 0; i < mHazards.size(); i++) {
+            Log.i(TAG, "mHazards: integer: " + mHazards.get(i));
+            sum += mHazards.get(i);
+        }
+        Log.i(TAG, "sum: " + sum);
+
+        BarGraphView barGraphView = new BarGraphView(getContext(),
+                mHazards.get(0), getPixelFromDp(getHazardViewWidth(360, mHazards.get(0), sum)), R.color.hazard2);
+        mResultLayout.addView(barGraphView);
     }
 
     private void calculateHazard() {
