@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="0dp"
-              android:layout_height="@dimen/bottom_navigation_item_height"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:orientation="vertical">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="30dp">
+        android:layout_height="30dp"
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/item_icon_image_view"
@@ -25,7 +21,6 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_alignEnd="@+id/item_icon_image_view"
-            android:text="10"
             android:textSize="10sp"/>
 
     </RelativeLayout>
@@ -35,10 +30,10 @@
         android:id="@+id/item_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:maxLength="5"
-        android:text="sample"
+        android:maxLength="6"
         android:textSize="12sp"/>
 
 </merge>

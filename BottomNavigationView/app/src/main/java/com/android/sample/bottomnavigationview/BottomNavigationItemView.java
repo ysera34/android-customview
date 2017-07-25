@@ -45,13 +45,12 @@ public class BottomNavigationItemView extends LinearLayout {
         mItemView = (LinearLayout) inflate(mContext, R.layout.layout_bottom_navigation_item, this);
 
         mLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        mLayoutParams = (LinearLayout.LayoutParams) getLayoutParams();
+        mItemView.setLayoutParams(mLayoutParams);
+        mLayoutParams = (LinearLayout.LayoutParams) getLayoutParams();
         mLayoutParams.width = 0;
         mLayoutParams.height = getResources().getDimensionPixelSize(R.dimen.bottom_navigation_item_height);
         mLayoutParams.weight = 1;
         mLayoutParams.gravity = Gravity.CENTER;
-        mItemView.setLayoutParams(mLayoutParams);
-
         setOrientation(VERTICAL);
 
         mIconImageView = (ImageView) mItemView.findViewById(R.id.item_icon_image_view);
@@ -64,6 +63,7 @@ public class BottomNavigationItemView extends LinearLayout {
         } else {
             mIconImageView.setImageResource(mItem.getImageResId());
             mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
+            mBadgeTextView.setText(String.valueOf(10));
         }
     }
 

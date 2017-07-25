@@ -2,6 +2,7 @@ package com.android.sample.bottomnavigationview;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class BottomNavigationView extends LinearLayout {
     private void initializeView(Context context) {
         mContext = context;
         setOrientation(HORIZONTAL);
+        setGravity(Gravity.CENTER);
+        setBackgroundColor(getResources().getColor(android.R.color.white));
+        setElevation(8.0f);
     }
 
     public void setBottomNavigationItems(ArrayList<BottomNavigationItem> items) {
