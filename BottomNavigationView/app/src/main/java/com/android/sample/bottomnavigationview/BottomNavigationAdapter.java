@@ -26,7 +26,7 @@ public class BottomNavigationAdapter extends ArrayAdapter<BottomNavigationItem> 
         super(context, R.layout.layout_bottom_navigation_item, items);
     }
 
-    public BottomNavigationAdapter(Context context, int resource, List<BottomNavigationItem> items) {
+    private BottomNavigationAdapter(Context context, int resource, List<BottomNavigationItem> items) {
         super(context, resource, items);
         mContext = context;
         mLayoutResId = resource;
@@ -67,12 +67,12 @@ public class BottomNavigationAdapter extends ArrayAdapter<BottomNavigationItem> 
         public void bindHolder(BottomNavigationItem item) {
             mItem = item;
             mIconImageView.setImageResource(mItem.getImageResId());
-            mTitleTextView.setText(String.valueOf(mItem.getTitle()));
+            mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(), mItem.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), mTitleTextView.getText().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 }

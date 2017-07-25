@@ -7,7 +7,7 @@ package com.android.sample.bottomnavigationview;
 public class BottomNavigationItem {
 
     private int mImageResId;
-    private String mTitle;
+    private int mTitleResId;
 
     public int getImageResId() {
         return mImageResId;
@@ -17,11 +17,11 @@ public class BottomNavigationItem {
         mImageResId = imageResId;
     }
 
-    public String getTitle() {
-        return mTitle;
+    public int getTitleResId() {
+        return mTitleResId;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
+    public void setTitleResId(int titleResId) {
+        mTitleResId = titleResId;
     }
 }
