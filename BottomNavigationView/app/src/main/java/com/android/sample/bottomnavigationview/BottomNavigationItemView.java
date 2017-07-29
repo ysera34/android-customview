@@ -3,6 +3,7 @@ package com.android.sample.bottomnavigationview;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,8 +17,6 @@ public class BottomNavigationItemView extends LinearLayout {
 
     public BottomNavigationItemView(Context context) {
         super(context, null);
-//        mContext = context;
-//        initializeView();
     }
 
     public BottomNavigationItemView(Context context, AttributeSet attrs) {
@@ -36,6 +35,7 @@ public class BottomNavigationItemView extends LinearLayout {
     private Context mContext;
     private LinearLayout mItemView;
     private LinearLayout.LayoutParams mLayoutParams;
+
     private BottomNavigationItem mItem;
     private ImageView mIconImageView;
     private TextView mTitleTextView;
@@ -43,14 +43,16 @@ public class BottomNavigationItemView extends LinearLayout {
 
     private void initializeView() {
         mItemView = (LinearLayout) inflate(mContext, R.layout.layout_bottom_navigation_item, this);
-
         mLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mItemView.setLayoutParams(mLayoutParams);
         mLayoutParams = (LinearLayout.LayoutParams) getLayoutParams();
         mLayoutParams.width = 0;
         mLayoutParams.height = getResources().getDimensionPixelSize(R.dimen.bottom_navigation_item_height);
         mLayoutParams.weight = 1;
+        // layout_gravity
         mLayoutParams.gravity = Gravity.CENTER;
+        // (child view) gravity
+        setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
 
         mIconImageView = (ImageView) mItemView.findViewById(R.id.item_icon_image_view);
@@ -62,7 +64,11 @@ public class BottomNavigationItemView extends LinearLayout {
             mIconImageView.setImageResource(R.mipmap.ic_launcher);
         } else {
             mIconImageView.setImageResource(mItem.getImageResId());
-            mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
+            if (mContext.getResources().getString(mItem.getTitleResId()).equals("title2")) {
+                mTitleTextView.setVisibility(View.GONE);
+            } else {
+                mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
+            }
             mBadgeTextView.setText(String.valueOf(10));
         }
     }

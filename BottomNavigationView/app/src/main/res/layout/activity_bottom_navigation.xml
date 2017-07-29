@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.sample.bottomnavigationview.MainActivity">
+    tools:context="com.android.sample.bottomnavigationview.BottomNavigationActivity">
 
     <com.android.sample.bottomnavigationview.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
