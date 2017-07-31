@@ -51,16 +51,27 @@ public class BottomNavigationView extends LinearLayout {
                 public void onClick(View v) {
                     int position = mNavigationItemViews.indexOf(v);
                     getNavigationItemClickListener().onNavigationItemClick(position);
-                    for (int j = 0; j < mNavigationItems.size(); j++) {
-                        if (j == position) {
-                            mNavigationItemViews.get(j).setSelectedItemView(true);
-                        } else {
-                            mNavigationItemViews.get(j).setSelectedItemView(false);
-                        }
-                    }
+                    setSelectedItemView(position);
+//                    for (int j = 0; j < mNavigationItems.size(); j++) {
+//                        if (j == position) {
+//                            mNavigationItemViews.get(j).setSelectedItemView(true);
+//                        } else {
+//                            mNavigationItemViews.get(j).setSelectedItemView(false);
+//                        }
+//                    }
                 }
             });
             addView(itemView);
+        }
+    }
+
+    public void setSelectedItemView(int position) {
+        for (int i = 0; i < mNavigationItems.size(); i++) {
+            if (i == position) {
+                mNavigationItemViews.get(i).setSelectedItemView(true);
+            } else {
+                mNavigationItemViews.get(i).setSelectedItemView(false);
+            }
         }
     }
 

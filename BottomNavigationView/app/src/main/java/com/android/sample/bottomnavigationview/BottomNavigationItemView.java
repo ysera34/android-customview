@@ -3,10 +3,12 @@ package com.android.sample.bottomnavigationview;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -37,6 +39,7 @@ public class BottomNavigationItemView extends LinearLayout {
     private LinearLayout.LayoutParams mLayoutParams;
 
     private BottomNavigationItem mItem;
+    private RelativeLayout mIconLayout;
     private ImageView mIconImageView;
     private TextView mTitleTextView;
     private TextView mBadgeTextView;
@@ -55,6 +58,7 @@ public class BottomNavigationItemView extends LinearLayout {
         setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
 
+        mIconLayout = (RelativeLayout) mItemView.findViewById(R.id.item_icon_layout);
         mIconImageView = (ImageView) mItemView.findViewById(R.id.item_icon_image_view);
         mTitleTextView = (TextView) mItemView.findViewById(R.id.item_title_text_view);
         mBadgeTextView = (TextView) mItemView.findViewById(R.id.item_badge_text_view);
@@ -65,17 +69,35 @@ public class BottomNavigationItemView extends LinearLayout {
         } else {
             mIconImageView.setImageResource(mItem.getImageResId());
             mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
-            mTitleTextView.setVisibility(View.GONE);
+//            mTitleTextView.setVisibility(View.GONE);
             mBadgeTextView.setText(String.valueOf(10));
         }
     }
 
     public void setSelectedItemView(boolean isSelected) {
         if (isSelected) {
-            mTitleTextView.setVisibility(View.VISIBLE);
+//            mTitleTextView.setVisibility(View.VISIBLE);
+            showTitleTextView();
         } else {
-            mTitleTextView.setVisibility(View.GONE);
+//            mTitleTextView.setVisibility(View.GONE);
+            hideTitleTextView();
         }
+    }
+
+    private void showTitleTextView() {
+        mTitleTextView.animate().translationY(0)
+//                .setInterpolator(new DecelerateInterpolator(2));
+                .setInterpolator(new OvershootInterpolator(2));
+        mIconLayout.animate().translationY(0)
+//                .setInterpolator(new DecelerateInterpolator(2));
+                .setInterpolator(new OvershootInterpolator(2));
+    }
+
+    private void hideTitleTextView() {
+        mTitleTextView.animate().translationY(mTitleTextView.getHeight())
+                .setInterpolator(new AccelerateInterpolator(2));
+        mIconLayout.animate().translationY(mTitleTextView.getHeight() / 2)
+                .setInterpolator(new AccelerateInterpolator(2));
     }
 
     public ImageView getIconImageView() {

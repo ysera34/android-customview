@@ -21,6 +21,14 @@ public class BottomNavigationActivity extends AppCompatActivity
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         mBottomNavigationView.setBottomNavigationItemViews(getBottomNavigationItems());
         mBottomNavigationView.setNavigationItemClickListener(this);
+//        mBottomNavigationView.setSelectedItemView(0);
+
+        mBottomNavigationView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mBottomNavigationView.setSelectedItemView(0);
+            }
+        }, 300);
     }
 
     private ArrayList<BottomNavigationItem> getBottomNavigationItems() {

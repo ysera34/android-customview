@@ -2,6 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:id="@+id/item_icon_layout"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_gravity="center">
