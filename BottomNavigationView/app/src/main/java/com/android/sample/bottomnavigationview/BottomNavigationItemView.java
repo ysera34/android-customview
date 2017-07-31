@@ -64,12 +64,17 @@ public class BottomNavigationItemView extends LinearLayout {
             mIconImageView.setImageResource(R.mipmap.ic_launcher);
         } else {
             mIconImageView.setImageResource(mItem.getImageResId());
-            if (mContext.getResources().getString(mItem.getTitleResId()).equals("title2")) {
-                mTitleTextView.setVisibility(View.GONE);
-            } else {
-                mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
-            }
+            mTitleTextView.setText(mContext.getResources().getString(mItem.getTitleResId()));
+            mTitleTextView.setVisibility(View.GONE);
             mBadgeTextView.setText(String.valueOf(10));
+        }
+    }
+
+    public void setSelectedItemView(boolean isSelected) {
+        if (isSelected) {
+            mTitleTextView.setVisibility(View.VISIBLE);
+        } else {
+            mTitleTextView.setVisibility(View.GONE);
         }
     }
 
