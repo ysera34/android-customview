@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.inframincer.measurementview.MeasurementView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:startMeasurement="0"
+        custom:endMeasurement="500"
+        custom:startColor="@color/colorAmber100"
+        custom:centerColor="@color/colorAmber500"
+        custom:endColor="@color/colorAmber900" />
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MeasurementView">
+        <attr name="startMeasurement" format="integer"/>
+        <attr name="endMeasurement" format="integer"/>
+        <attr name="measurementTextSize" format="dimension"/>
+        
+        <attr name="startColor" format="color"/>
+        <attr name="centerColor" format="color"/>
+        <attr name="endColor" format="color"/>
+
+        <attr name="needleImage" format="integer"/>
+        <attr name="needleBackground" format="integer"/>
+    </declare-styleable>
+</resources>
